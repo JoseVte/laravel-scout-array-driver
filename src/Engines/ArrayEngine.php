@@ -2,6 +2,7 @@
 
 namespace Sti3bas\ScoutArray\Engines;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
@@ -13,17 +14,14 @@ use Sti3bas\ScoutArray\ArrayStore;
 
 class ArrayEngine extends Engine
 {
-    /**
-     * @var ArrayStore
-     */
-    public $store;
+    public ArrayStore $store;
 
     /**
      * Determines if soft deletes for Scout are enabled or not.
      *
      * @var bool
      */
-    protected $softDelete;
+    protected mixed $softDelete;
 
     public function __construct($store, $softDelete = false)
     {
@@ -34,10 +32,9 @@ class ArrayEngine extends Engine
     /**
      * Update the given model in the index.
      *
-     * @param Collection $models
-     * @return void
+     * @param  Collection  $models
      */
-    public function update($models)
+    public function update($models): void
     {
         if ($this->usesSoftDelete($models->first()) && $this->softDelete) {
             $models->each->pushSoftDeleteMetadata();
@@ -58,10 +55,9 @@ class ArrayEngine extends Engine
     /**
      * Remove the given model from the index.
      *
-     * @param Collection $models
-     * @return void
+     * @param  Collection  $models
      */
-    public function delete($models)
+    public function delete($models): void
     {
         $models->each(function ($model) {
             $this->store->forget($model->searchableAs(), $model->getScoutKey());
@@ -70,11 +66,8 @@ class ArrayEngine extends Engine
 
     /**
      * Perform the given search on the engine.
-     *
-     *
-     * @return mixed
      */
-    public function search(Builder $builder)
+    public function search(Builder $builder): mixed
     {
         return $this->performSearch($builder, [
             'perPage' => $builder->limit,
@@ -84,11 +77,10 @@ class ArrayEngine extends Engine
     /**
      * Perform the given search on the engine.
      *
-     * @param int $perPage
-     * @param int $page
-     * @return mixed
+     * @param  int  $perPage
+     * @param  int  $page
      */
-    public function paginate(Builder $builder, $perPage, $page)
+    public function paginate(Builder $builder, $perPage, $page): mixed
     {
         return $this->performSearch($builder, [
             'perPage' => $perPage,
@@ -98,10 +90,8 @@ class ArrayEngine extends Engine
 
     /**
      * Perform the given search on the engine.
-     *
-     * @return array
      */
-    protected function performSearch(Builder $builder, array $options = [])
+    protected function performSearch(Builder $builder, array $options = []): array
     {
         $index = $builder->index ?: $builder->model->searchableAs();
 
@@ -111,8 +101,8 @@ class ArrayEngine extends Engine
             return $this->matchesFilters($record, $builder->wheres) &&
                 $this->matchesFilters($record, $builder->whereIns) &&
                 $this->matchesFilters($record, data_get($builder, 'whereNotIns', []), true) &&
-                !empty(array_filter(iterator_to_array($values, false), function ($value) use ($builder) {
-                    return !$builder->query || stripos($value, $builder->query) !== false;
+                ! empty(array_filter(iterator_to_array($values, false), function ($value) use ($builder) {
+                    return ! $builder->query || stripos($value, $builder->query) !== false;
                 }));
         }, true);
 
@@ -126,13 +116,8 @@ class ArrayEngine extends Engine
 
     /**
      * Determine if the given record matches given filters.
-     *
-     * @param array $record
-     * @param array $filters
-     * @param bool $not
-     * @return bool
      */
-    private function matchesFilters($record, $filters, $not = false)
+    private function matchesFilters(array $record, array $filters, bool $not = false): bool
     {
         if (empty($filters)) {
             return true;
@@ -142,6 +127,7 @@ class ArrayEngine extends Engine
             if (is_array($value)) {
                 return in_array(data_get($record, $key), $value, true);
             }
+
             return data_get($record, $key) === $value;
         };
 
@@ -160,16 +146,15 @@ class ArrayEngine extends Engine
             return $match($record, $key, $value);
         });
 
-        return $not ? !$match : $match;
+        return $not ? ! $match : $match;
     }
 
     /**
      * Pluck and return the primary keys of the given results.
      *
-     * @param mixed $results
-     * @return \Illuminate\Support\Collection
+     * @param  mixed  $results
      */
-    public function mapIds($results)
+    public function mapIds($results): Collection
     {
         return Collection::make($results['hits'])->pluck('objectID')->values();
     }
@@ -177,11 +162,10 @@ class ArrayEngine extends Engine
     /**
      * Map the given results to instances of the given model.
      *
-     * @param mixed $results
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return Collection
+     * @param  mixed  $results
+     * @param  Model  $model
      */
-    public function map(Builder $builder, $results, $model)
+    public function map(Builder $builder, $results, $model): Collection
     {
         if (count($results['hits']) === 0) {
             return $model->newCollection();
@@ -201,11 +185,10 @@ class ArrayEngine extends Engine
     /**
      * Map the given results to instances of the given model via a lazy collection.
      *
-     * @param mixed $results
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Support\LazyCollection
+     * @param  mixed  $results
+     * @param  Model  $model
      */
-    public function lazyMap(Builder $builder, $results, $model)
+    public function lazyMap(Builder $builder, $results, $model): LazyCollection
     {
         if (count($results['hits']) === 0) {
             return LazyCollection::make($model->newCollection());
@@ -227,18 +210,17 @@ class ArrayEngine extends Engine
     /**
      * Get the total count from a raw result returned by the engine.
      *
-     * @param mixed $results
-     * @return int
+     * @param  mixed  $results
      */
-    public function getTotalCount($results)
+    public function getTotalCount($results): int
     {
         return $results['total'];
     }
 
     /**
-     * Flush all of the model's records from the engine.
+     * Flush all the model's records from the engine.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param  Model  $model
      * @return void
      */
     public function flush($model)
@@ -249,8 +231,8 @@ class ArrayEngine extends Engine
     /**
      * Create a search index.
      *
-     * @param string $name
-     * @return mixed
+     * @param  string  $name
+     * @return mixed|void
      */
     public function createIndex($name, array $options = [])
     {
@@ -260,8 +242,8 @@ class ArrayEngine extends Engine
     /**
      * Delete a search index.
      *
-     * @param string $name
-     * @return mixed
+     * @param  string  $name
+     * @return mixed|void
      */
     public function deleteIndex($name)
     {
@@ -270,26 +252,9 @@ class ArrayEngine extends Engine
 
     /**
      * Determine if the given model uses soft deletes.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return bool
      */
-    protected function usesSoftDelete($model)
+    protected function usesSoftDelete(Model $model): bool
     {
-        return in_array(SoftDeletes::class, class_uses_recursive($model));
-    }
-
-    protected function buildSearchQuery(Builder $builder)
-    {
-        $query = $this->initializeSearchQuery(
-            $builder,
-            array_keys($builder->model->toSearchableArray()),
-            $this->getPrefixColumns($builder),
-            $this->getFullTextColumns($builder)
-        );
-
-        return $this->constrainForSoftDeletes(
-            $builder, $this->addAdditionalConstraints($builder, $query->take($builder->limit))
-        );
+        return in_array(SoftDeletes::class, class_uses_recursive($model), true);
     }
 }

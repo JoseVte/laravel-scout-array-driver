@@ -16,14 +16,14 @@
         }
     ],
     "require": {
-        "php": "^8.0 || ^8.1 || ^8.2",
-        "illuminate/bus": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/database": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/http": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/pagination": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/queue": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+        "php": "^8.0 || ^8.1 || ^8.2 || ^8.3 || ^8.4",
+        "illuminate/bus": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/contracts": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/database": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/http": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/pagination": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/queue": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
         "laravel/scout": "^10.0"
     },
     "require-dev": {
@@ -46,6 +46,9 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "pint": "vendor/bin/pint"
     },
     "extra": {
         "branch-alias": {

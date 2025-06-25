@@ -11,7 +11,7 @@ class SearchableModel extends Model
 
     protected $guarded = [];
 
-    public function searchableAs()
+    public function searchableAs(): string
     {
         return 'test_index';
     }

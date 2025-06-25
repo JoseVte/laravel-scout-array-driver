@@ -11,7 +11,7 @@ use Sti3bas\ScoutArray\Tests\Fixtures\SearchableModel;
 class SearchTest extends TestCase
 {
     /** @test */
-    public function it_can_fake_a_record()
+    public function it_can_fake_a_record(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -36,7 +36,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fake_full_synced_record()
+    public function it_can_fake_full_synced_record(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -62,7 +62,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fake_a_record_in_the_custom_index()
+    public function it_can_fake_a_record_in_the_custom_index(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -87,7 +87,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_passes_if_record_exists()
+    public function assert_contains_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -102,7 +102,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_fails_if_record_does_not_exist()
+    public function assert_contains_fails_if_record_does_not_exist(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -115,7 +115,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_passes_if_callback_returns_true()
+    public function assert_contains_passes_if_callback_returns_true(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -133,7 +133,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_fails_if_callback_returns_false()
+    public function assert_contains_fails_if_callback_returns_false(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -153,7 +153,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_passes_if_record_does_not_exist()
+    public function assert_not_contains_passes_if_record_does_not_exist(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -170,7 +170,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_fails_if_record_exists()
+    public function assert_not_contains_fails_if_record_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -188,7 +188,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_passes_if_callback_returns_false()
+    public function assert_not_contains_passes_if_callback_returns_false(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -205,7 +205,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_fails_if_callback_returns_true()
+    public function assert_not_contains_fails_if_callback_returns_true(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -224,7 +224,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_in_passes_if_record_exists()
+    public function assert_contains_in_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -242,7 +242,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_in_fails_if_record_does_not_exist()
+    public function assert_contains_in_fails_if_record_does_not_exist(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -260,7 +260,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_in_passes_if_callback_returns_true()
+    public function assert_contains_in_passes_if_callback_returns_true(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -278,7 +278,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_contains_in_fails_if_callback_returns_false()
+    public function assert_contains_in_fails_if_callback_returns_false(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -299,7 +299,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_in_passes_if_record_doesn_not_exist()
+    public function assert_not_contains_in_passes_if_record_doesn_not_exist(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -317,7 +317,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_in_fails_if_record_exists()
+    public function assert_not_contains_in_fails_if_record_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -335,7 +335,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_in_passes_if_callback_returns_false()
+    public function assert_not_contains_in_passes_if_callback_returns_false(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -354,7 +354,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_contains_in_fails_if_callback_returns_true()
+    public function assert_not_contains_in_fails_if_callback_returns_true(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -375,7 +375,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_empty_passes_if_no_records_exists()
+    public function assert_empty_passes_if_no_records_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -386,7 +386,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_empty_fails_if_record_exists()
+    public function assert_empty_fails_if_record_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -399,7 +399,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_empty_in_passes_if_no_records_exists()
+    public function assert_empty_in_passes_if_no_records_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -412,7 +412,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_empty_in_fails_if_record_exists()
+    public function assert_empty_in_fails_if_record_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -425,7 +425,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_count_fails_if_no_records_exists()
+    public function assert_count_fails_if_no_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -436,7 +436,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_count_fails_if_records_counted_is_invalid()
+    public function assert_count_fails_if_records_counted_is_invalid(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -449,7 +449,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_count_passes_if_record_exists()
+    public function assert_count_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -462,7 +462,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_count_in_fails_if_no_records_exists()
+    public function assert_count_in_fails_if_no_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -473,7 +473,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_count_in_fails_if_records_counted_is_invalid()
+    public function assert_count_in_fails_if_records_counted_is_invalid(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -482,11 +482,11 @@ class SearchTest extends TestCase
 
         $store->set('test', 'test', ['foo' => 'bar']);
 
-        $result = $search->assertCountIn('test2',1);
+        $result = $search->assertCountIn('test2', 1);
     }
 
     /** @test */
-    public function assert_count_in_passes_if_record_exists()
+    public function assert_count_in_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -499,7 +499,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_empty_passes_if_record_exists()
+    public function assert_not_empty_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -514,7 +514,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_empty_fails_if_no_records_exists()
+    public function assert_not_empty_fails_if_no_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -525,7 +525,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_empty_in_passes_if_record_exists()
+    public function assert_not_empty_in_passes_if_record_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -540,7 +540,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_empty_in_fails_if_no_records_exists()
+    public function assert_not_empty_in_fails_if_no_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -555,7 +555,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_passes_if_records_exists_in_history()
+    public function assert_synced_passes_if_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -575,7 +575,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_fails_if_no_records_exists_in_history()
+    public function assert_synced_fails_if_no_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -592,7 +592,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_passes_if_callback_returns_true_and_records_exists_in_history()
+    public function assert_synced_passes_if_callback_returns_true_and_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -617,7 +617,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_fails_if_callback_returns_false_and_records_exists_in_history()
+    public function assert_synced_fails_if_callback_returns_false_and_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -645,7 +645,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_passes_if_record_exists_in_history()
+    public function assert_not_synced_passes_if_record_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -662,7 +662,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_passes_if_no_records_exists_in_history()
+    public function assert_not_synced_passes_if_no_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -675,7 +675,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_fails_if_record_exists_in_history()
+    public function assert_not_synced_fails_if_record_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -694,7 +694,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_passes_if_callback_returns_false_and_records_exists_in_history()
+    public function assert_not_synced_passes_if_callback_returns_false_and_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -720,7 +720,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_fails_if_callback_returns_true_and_records_exists_in_history()
+    public function assert_not_synced_fails_if_callback_returns_true_and_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -748,7 +748,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_to_passes_if_record_exists_in_history()
+    public function assert_synced_to_passes_if_record_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -770,7 +770,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_to_fails_if_no_records_exists_in_history()
+    public function assert_synced_to_fails_if_no_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -790,7 +790,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_to_passes_if_callback_returns_true_and_records_exists_in_history()
+    public function assert_synced_to_passes_if_callback_returns_true_and_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -816,7 +816,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_to_fails_if_callback_returns_false_and_records_exists_in_history()
+    public function assert_synced_to_fails_if_callback_returns_false_and_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -844,7 +844,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_to_passes_if_no_records_exists_in_history()
+    public function assert_not_synced_to_passes_if_no_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -864,7 +864,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_to_fails_if_record_exists_in_history()
+    public function assert_not_synced_to_fails_if_record_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -884,7 +884,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_to_passes_if_callback_returns_false_and_records_exists_in_history()
+    public function assert_not_synced_to_passes_if_callback_returns_false_and_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -910,7 +910,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_not_synced_to_fails_if_callback_returns_true_and_records_exists_in_history()
+    public function assert_not_synced_to_fails_if_callback_returns_true_and_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -938,7 +938,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_passes_if_records_exists_in_history()
+    public function assert_synced_times_passes_if_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -955,7 +955,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_fails_if_no_records_exists_in_history()
+    public function assert_synced_times_fails_if_no_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -972,7 +972,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_fails_if_more_records_than_expected_exists_in_history()
+    public function assert_synced_times_fails_if_more_records_than_expected_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -994,7 +994,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_fails_if_less_records_than_expected_exists_in_history()
+    public function assert_synced_times_fails_if_less_records_than_expected_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1015,7 +1015,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_passes_if_callback_returns_true_and_records_exists_in_history()
+    public function assert_synced_times_passes_if_callback_returns_true_and_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1047,7 +1047,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_fails_if_callback_returns_false_and_records_exists_in_history()
+    public function assert_synced_times_fails_if_callback_returns_false_and_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1077,7 +1077,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_passes_if_records_exists_in_history()
+    public function assert_synced_times_to_passes_if_records_exists_in_history(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1092,7 +1092,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_fails_if_no_records_exists_in_history()
+    public function assert_synced_times_to_fails_if_no_records_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1110,7 +1110,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_fails_if_more_records_than_expected_exists_in_history()
+    public function assert_synced_times_to_fails_if_more_records_than_expected_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1132,7 +1132,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_fails_if_less_records_than_expected_exists_in_history()
+    public function assert_synced_times_to_fails_if_less_records_than_expected_exists_in_history(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1154,7 +1154,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_passes_if_callback_returns_true_and_records_exists()
+    public function assert_synced_times_to_passes_if_callback_returns_true_and_records_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1186,7 +1186,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_synced_times_to_fails_if_callback_returns_false_and_records_exists()
+    public function assert_synced_times_to_fails_if_callback_returns_false_and_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1210,7 +1210,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_nothing_synced_passes_if_no_records_exists()
+    public function assert_nothing_synced_passes_if_no_records_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1221,7 +1221,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_nothing_synced_fails_if_records_exists()
+    public function assert_nothing_synced_fails_if_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1234,7 +1234,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_nothing_synced_to_passes_if_no_records_exists()
+    public function assert_nothing_synced_to_passes_if_no_records_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1247,7 +1247,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_nothing_synced_to_fails_if_records_exists()
+    public function assert_nothing_synced_to_fails_if_records_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1260,7 +1260,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_index_exists_passes_if_index_exists()
+    public function assert_index_exists_passes_if_index_exists(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1272,7 +1272,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_index_exists_fails_if_index_does_not_exist()
+    public function assert_index_exists_fails_if_index_does_not_exist(): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -1285,7 +1285,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_index_not_exists_passes_if_index_does_not_exist()
+    public function assert_index_not_exists_passes_if_index_does_not_exist(): void
     {
         $store = new ArrayStore;
         $search = new Search($store);
@@ -1296,7 +1296,7 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function assert_index_not_exists_fails_if_index_exists()
+    public function assert_index_not_exists_fails_if_index_exists(): void
     {
         $this->expectException(AssertionFailedError::class);
 

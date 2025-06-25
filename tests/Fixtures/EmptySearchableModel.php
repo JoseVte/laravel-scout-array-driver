@@ -11,7 +11,7 @@ class EmptySearchableModel extends Model
 
     protected $guarded = [];
 
-    public function searchableAs()
+    public function searchableAs(): string
     {
         return 'test_index3';
     }
@@ -21,7 +21,7 @@ class EmptySearchableModel extends Model
         return $this->scoutKey;
     }
 
-    public function toSearchableArray()
+    public function toSearchableArray(): array
     {
         return [];
     }

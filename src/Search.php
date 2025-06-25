@@ -8,7 +8,7 @@ use PHPUnit\Framework\Assert;
 
 class Search
 {
-    protected $store;
+    protected ArrayStore $store;
 
     public function __construct(ArrayStore $store)
     {
@@ -20,7 +20,7 @@ class Search
         Assert::assertCount(
             1,
             $this->store->find($model->searchableAs(), function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model exists in '{$model->searchableAs()}' search index."
         );
@@ -30,11 +30,10 @@ class Search
 
     public function assertNotContains(Model $model, ?Closure $callback = null): self
     {
-        Assert::assertFalse(
+        Assert::assertNotSame(
             count($this->store->find($model->searchableAs(), function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
-            })) === 1,
-            "Failed asserting that model doesn't exist in '{$model->searchableAs()}' search index."
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
+            })), 1, "Failed asserting that model doesn't exist in '{$model->searchableAs()}' search index."
         );
 
         return $this;
@@ -45,7 +44,7 @@ class Search
         Assert::assertCount(
             1,
             $this->store->find($index, function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model exists in '{$index}' search index."
         );
@@ -55,11 +54,10 @@ class Search
 
     public function assertNotContainsIn(string $index, Model $model, ?Closure $callback = null): self
     {
-        Assert::assertFalse(
+        Assert::assertNotSame(
             count($this->store->find($index, function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
-            })) === 1,
-            "Failed asserting that model doesn't exist in '{$index}' search index."
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
+            })), 1, "Failed asserting that model doesn't exist in '{$index}' search index."
         );
 
         return $this;
@@ -106,7 +104,7 @@ class Search
     public function assertCount(int $count, ?Closure $callback = null): self
     {
         $countFiltered = count($this->store->find($this->store->getDefaultIndex(), function ($record) use ($callback) {
-            return ($callback ? $callback($record) : true);
+            return $callback ? $callback($record) : true;
         }));
 
         Assert::assertSame(
@@ -119,7 +117,7 @@ class Search
     public function assertCountIn(string $index, int $count, ?Closure $callback = null): self
     {
         $countFiltered = count($this->store->find($index, function ($record) use ($callback) {
-            return ($callback ? $callback($record) : true);
+            return $callback ? $callback($record) : true;
         }));
 
         Assert::assertSame(
@@ -133,7 +131,7 @@ class Search
     {
         Assert::assertNotEmpty(
             $this->store->findInHistory($model->searchableAs(), function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model was synced to '{$model->searchableAs()}' search index."
         );
@@ -146,7 +144,7 @@ class Search
         Assert::assertCount(
             0,
             $this->store->findInHistory($model->searchableAs(), function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model was not synced to '{$model->searchableAs()}' search index."
         );
@@ -158,7 +156,7 @@ class Search
     {
         Assert::assertNotEmpty(
             $this->store->findInHistory($index, function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model was synced to '{$index}' search index."
         );
@@ -170,7 +168,7 @@ class Search
     {
         Assert::assertEmpty(
             $this->store->findInHistory($index, function ($record) use ($model, $callback) {
-                return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+                return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
             }),
             "Failed asserting that model was not synced to '{$index}' search index."
         );
@@ -181,12 +179,11 @@ class Search
     public function assertSyncedTimes(Model $model, int $times, ?Closure $callback = null): self
     {
         $syncedTimes = count($this->store->findInHistory($model->searchableAs(), function ($record) use ($model, $callback) {
-            return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+            return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
         }));
 
-        Assert::assertTrue(
-            $syncedTimes === $times,
-            "Failed asserting that model was synced to '{$model->searchableAs()}' search index {$times} times. It was synced {$syncedTimes} instead."
+        Assert::assertSame(
+            $syncedTimes, $times, "Failed asserting that model was synced to '{$model->searchableAs()}' search index {$times} times. It was synced {$syncedTimes} instead."
         );
 
         return $this;
@@ -195,12 +192,11 @@ class Search
     public function assertSyncedTimesTo(string $index, Model $model, int $times, ?Closure $callback = null): self
     {
         $syncedTimes = count($this->store->findInHistory($index, function ($record) use ($model, $callback) {
-            return $record['objectID'] === (string) $model->getScoutKey() && ($callback ? $callback($record) : true);
+            return $record['objectID'] === (string) $model->getScoutKey() && (! $callback || $callback($record));
         }));
 
-        Assert::assertTrue(
-            $syncedTimes === $times,
-            "Failed asserting that model was synced to '{$index}' search index {$times} times. It was synced {$syncedTimes} instead."
+        Assert::assertSame(
+            $syncedTimes, $times, "Failed asserting that model was synced to '{$index}' search index {$times} times. It was synced {$syncedTimes} instead."
         );
 
         return $this;

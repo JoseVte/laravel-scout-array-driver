@@ -10,10 +10,8 @@ class ScoutArrayEngineServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app->singleton(ArrayStore::class, function () {
             return new ArrayStore;

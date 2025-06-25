@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class ArrayStore
 {
-    protected $storage = [
+    protected array $storage = [
         'current' => [],
         'mocks' => [],
         'history' => [],
