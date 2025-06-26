@@ -5,7 +5,7 @@
     backupGlobals="false"
     bootstrap="vendor/autoload.php"
     colors="true"
-	  processIsolation="false"
+    processIsolation="false"
     stopOnFailure="false"
     executionOrder="random"
     failOnWarning="true"
@@ -15,9 +15,9 @@
     cacheDirectory=".phpunit.cache"
     backupStaticProperties="false"
 >
-  <testsuites>
-    <testsuite name="tests">
-      <directory>tests</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="tests">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
