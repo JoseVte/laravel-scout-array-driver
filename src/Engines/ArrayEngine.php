@@ -125,7 +125,19 @@ class ArrayEngine extends Engine
 
         $match = function ($record, $key, $value) {
             if (is_array($value)) {
-                return in_array(data_get($record, $key), $value, true);
+                $needle = data_get($record, $key);
+
+                if (is_array($needle)) {
+                    return ! empty(array_intersect($needle, $value));
+                }
+
+                if ($needle instanceof Collection) {
+                    return $needle->contains(function ($item) use ($value) {
+                        return in_array($item, $value, true);
+                    });
+                }
+
+                return in_array($needle, $value, true);
             }
 
             return data_get($record, $key) === $value;
@@ -221,9 +233,8 @@ class ArrayEngine extends Engine
      * Flush all the model's records from the engine.
      *
      * @param  Model  $model
-     * @return void
      */
-    public function flush($model)
+    public function flush($model): void
     {
         $this->store->flush($model->searchableAs());
     }
@@ -232,9 +243,8 @@ class ArrayEngine extends Engine
      * Create a search index.
      *
      * @param  string  $name
-     * @return mixed|void
      */
-    public function createIndex($name, array $options = [])
+    public function createIndex($name, array $options = []): void
     {
         $this->store->createIndex($name);
     }
@@ -243,9 +253,8 @@ class ArrayEngine extends Engine
      * Delete a search index.
      *
      * @param  string  $name
-     * @return mixed|void
      */
-    public function deleteIndex($name)
+    public function deleteIndex($name): void
     {
         $this->store->deleteIndex($name);
     }

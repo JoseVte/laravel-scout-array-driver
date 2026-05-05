@@ -224,7 +224,7 @@ class Search
         return $this;
     }
 
-    public function assertIndexExists($index)
+    public function assertIndexExists($index): ?Search
     {
         Assert::assertTrue(
             $this->store->indexExists($index),
@@ -234,7 +234,7 @@ class Search
         return $this;
     }
 
-    public function assertIndexNotExists($index)
+    public function assertIndexNotExists($index): ?Search
     {
         Assert::assertFalse(
             $this->store->indexExists($index),
